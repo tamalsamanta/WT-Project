@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'authapp'
+    'authapp',
+    'bills'
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ DATABASES = {
     'default': {
     'ENGINE': 'django.db.backends.mysql',
     'NAME': 'WT',
-    'USER': 'umang',
+    'USER': 'ashish',
     'PASSWORD': '',
     'HOST': '',
     'PORT': '',
