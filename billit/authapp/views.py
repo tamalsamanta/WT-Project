@@ -1,5 +1,7 @@
 from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
+from django.contrib.auth import logout
+
 
 from .forms import SignUpForm
 
@@ -7,6 +9,7 @@ from .forms import SignUpForm
 
 def signup(request):
     if request.method == 'POST':
+        print(request.POST)
         form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
@@ -17,4 +20,24 @@ def signup(request):
             return redirect('home')
     else:
         form = SignUpForm()
-    return render(request, 'signup.html', {'form': form})
+    return render(request, 'signup.html', {'form' : form})
+
+def log_in(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+    return render(request, 'login.html')
+
+def index(request):
+    if request.user.is_authenticated:
+        return render(request, 'index.html')
+    else:
+        return redirect('login')
+
+def logout_request(request):
+    logout(request)
+    return redirect('login')
